@@ -1,0 +1,15 @@
+@model MoneyJourney
+<section class="hero-play">
+    <div>
+        <div class="tag">+@ViewBag.Xp XP · score @ViewBag.Score</div>
+        <h1>@ViewBag.Headline</h1>
+        <p>@ViewBag.Immediate</p>
+    </div>
+</section>
+<section class="card" style="margin-top:14px">
+    <h2>Why this matters</h2>
+    <p>@ViewBag.Why</p>
+    <p class="muted">@ViewBag.Future</p>
+</section>
+<div style="margin-top:14px">@await Html.PartialAsync("_Wallet", Model)</div>
+<a class="btn" style="margin-top:14px" asp-action="Index">Continue the journey</a>

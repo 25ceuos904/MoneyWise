@@ -1,0 +1,10 @@
+<h1>Build your portfolio</h1>
+<p class="muted">Split exactly ₹10,000 of virtual money. This does not tell you to buy any real fund or stock.</p>
+@if (TempData["Msg"] != null) { <p class="alert">@TempData["Msg"]</p> }
+<form method="post" class="card">
+    <label>Savings</label><input name="savings" type="number" min="0" value="2000" />
+    <label>FD</label><input name="fd" type="number" min="0" value="2000" />
+    <label>Mutual fund</label><input name="fund" type="number" min="0" value="4000" />
+    <label>Stocks</label><input name="stocks" type="number" min="0" value="2000" />
+    <button class="btn" type="submit">See the mix</button>
+</form>

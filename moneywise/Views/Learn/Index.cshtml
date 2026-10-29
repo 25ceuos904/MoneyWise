@@ -1,0 +1,17 @@
+@model List<Lesson>
+@{
+    var done = (List<int>)ViewBag.Done;
+}
+<h1>Short lessons</h1>
+<p class="muted">Each one starts with a situation, then a choice. No long chapters.</p>
+<div class="grid">
+@foreach (var lesson in Model)
+{
+    <a class="card" asp-action="Play" asp-route-id="@lesson.Id">
+        <span class="tag">@lesson.Category</span>
+        @if (done.Contains(lesson.Id)) { <span class="tag">Done</span> }
+        <h2>@lesson.Title</h2>
+        <p class="muted">@lesson.Situation</p>
+    </a>
+}
+</div>

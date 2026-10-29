@@ -1,0 +1,19 @@
+@model Lesson
+<h1>@Model.Title</h1>
+<p>@Model.Situation</p>
+<form method="post">
+    @foreach (var question in Model.Questions)
+    {
+        <section class="card">
+            <h2>@question.Prompt</h2>
+            @foreach (var option in question.Options)
+            {
+                <label class="choice">
+                    <input type="radio" name="q@(question.Id)" value="@option.Id" required />
+                    <span>@option.Text</span>
+                </label>
+            }
+        </section>
+    }
+    <button class="btn" type="submit">Check my choices</button>
+</form>

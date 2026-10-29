@@ -1,0 +1,47 @@
+@{
+    var user = (ApplicationUser)ViewBag.User;
+    var journey = (MoneyJourney)ViewBag.Journey;
+    var progress = (UserProgress)ViewBag.Progress;
+    var badge = ViewBag.Badge as Badge;
+    var challenge = ViewBag.Challenge as Challenge;
+    var level = GameRules.LevelProgress(progress.Xp);
+    var story = journey.PendingLifeEvent?.Story ?? journey.CurrentScenario?.Story ?? "A new month is ready.";
+    var title = journey.PendingLifeEvent?.Title ?? journey.CurrentScenario?.Title ?? "Month end";
+}
+<h1>Hey, @user.DisplayName</h1>
+<p class="muted">Your next money decision is waiting.</p>
+<div class="grid stats">
+    <div class="card"><div class="muted">Level</div><strong>@GameRules.LevelTitle(progress.Xp)</strong></div>
+    <div class="card"><div class="muted">XP</div><strong>@progress.Xp</strong><div class="bar"><span style="--w:@(level.Span == 0 ? 0 : level.Into * 100 / level.Span)%"></span></div></div>
+    <div class="card"><div class="muted">Streak</div><strong>@progress.Streak day@(progress.Streak == 1 ? "" : "s")</strong></div>
+    <div class="card"><div class="muted">Money score</div><strong>@journey.FinancialScore</strong><div class="muted">Learning score, not real wealth</div></div>
+</div>
+<div class="grid two" style="margin-top:14px">
+    <section class="hero-play">
+        <div>
+            <div class="tag">Continue your money journey</div>
+            <h2>@title</h2>
+            <p>@story</p>
+        </div>
+        <a class="btn light" asp-controller="MoneyJourney" asp-action="Index">Play this moment</a>
+    </section>
+    <section class="card">
+        <h2>Today's challenge</h2>
+        @if (challenge == null)
+        {
+            <p>You have cleared the challenges open for your age group.</p>
+        }
+        else
+        {
+            <p><strong>@challenge.Title</strong></p>
+            <p class="muted">@challenge.Description</p>
+        }
+        <a class="btn" asp-controller="Challenge" asp-action="Index">Open challenges</a>
+        <p class="muted" style="margin-top:12px">Latest badge: @(badge?.Title ?? "Still waiting for the first one")</p>
+        <a asp-controller="Progress" asp-action="Index">See progress</a>
+    </section>
+</div>
+<div style="margin-top:14px">
+    @await Html.PartialAsync("_Wallet", journey)
+</div>
+<p class="muted">All money in MoneyWise is simulated and used only for educational purposes.</p>

@@ -1,0 +1,49 @@
+@model MoneyJourney
+<h1>Month @Model.CurrentMonth</h1>
+<p class="muted">@ViewBag.StageName · income @GameRules.Inr(Model.MonthlyIncome)</p>
+@await Html.PartialAsync("_Wallet", Model)
+@if (Model.Debt > 0)
+{
+    <p class="alert">Simulated debt: @GameRules.Inr(Model.Debt). Monthly obligation: @GameRules.Inr(Model.MonthlyObligation).</p>
+}
+@if (Model.AwaitingMonthEnd)
+{
+    <section class="card">
+        <h2>Month end</h2>
+        <p>Savings and the emergency jar are @GameRules.Inr(Model.Savings + Model.EmergencyFund). Investing is @GameRules.Inr(Model.InvestmentValue). Learning score: @Model.FinancialScore.</p>
+        <p class="muted">Next month starts with income, minus any obligation you took on.</p>
+        <form asp-action="NextMonth" method="post"><button class="btn" type="submit">Start next month</button></form>
+    </section>
+}
+else if (Model.PendingLifeEvent?.Scenario != null)
+{
+    <section class="card">
+        <div class="tag">@Model.PendingLifeEvent.Emoji Today's event</div>
+        <h2>@Model.PendingLifeEvent.Title</h2>
+        <p>@Model.PendingLifeEvent.Story</p>
+        @foreach (var option in Model.PendingLifeEvent.Scenario.Options)
+        {
+            <form asp-action="Choose" method="post">
+                <input type="hidden" name="optionId" value="@option.Id" />
+                <input type="hidden" name="fromEvent" value="true" />
+                <button class="choice" type="submit">@option.Label</button>
+            </form>
+        }
+    </section>
+}
+else if (Model.CurrentScenario != null)
+{
+    <section class="card">
+        <div class="tag">@Model.CurrentScenario.Emoji Story</div>
+        <h2>@Model.CurrentScenario.Title</h2>
+        <p>@Model.CurrentScenario.Story</p>
+        @foreach (var option in Model.CurrentScenario.Options)
+        {
+            <form asp-action="Choose" method="post">
+                <input type="hidden" name="optionId" value="@option.Id" />
+                <input type="hidden" name="fromEvent" value="false" />
+                <button class="choice" type="submit">@option.Label</button>
+            </form>
+        }
+    </section>
+}

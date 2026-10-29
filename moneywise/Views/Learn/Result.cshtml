@@ -1,0 +1,9 @@
+@model Lesson
+<section class="hero-play">
+    <div>
+        <div class="tag">@ViewBag.Correct / @ViewBag.Total · +@ViewBag.Xp XP</div>
+        <h1>@Model.Title</h1>
+        <p>@ViewBag.Explain</p>
+    </div>
+</section>
+<a class="btn" style="margin-top:14px" asp-action="Index">More situations</a>

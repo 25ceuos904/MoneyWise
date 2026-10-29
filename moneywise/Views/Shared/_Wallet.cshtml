@@ -1,0 +1,9 @@
+@model MoneyJourney
+<div class="wallet">
+    <div class="card"><div class="muted">Available</div><div class="money">@GameRules.Inr(Model.VirtualBalance)</div></div>
+    <div class="card"><div class="muted">Savings</div><div class="money">@GameRules.Inr(Model.Savings)</div></div>
+    <div class="card"><div class="muted">Emergency</div><div class="money">@GameRules.Inr(Model.EmergencyFund)</div></div>
+    <div class="card"><div class="muted">Invested</div><div class="money">@GameRules.Inr(Model.InvestmentValue)</div></div>
+</div>
+<p class="muted">Goal: @Model.GoalName · @GameRules.Inr(Model.GoalProgress) of @GameRules.Inr(Model.GoalAmount)</p>
+<div class="bar"><span style="--w:@(Model.GoalAmount == 0 ? 0 : Math.Min(100, Model.GoalProgress * 100 / Model.GoalAmount))%"></span></div>

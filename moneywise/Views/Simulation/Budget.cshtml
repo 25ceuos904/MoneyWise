@@ -1,0 +1,11 @@
+<h1>Budget the month</h1>
+<p class="muted">Income is ₹30,000 of virtual money. The five boxes must add up to that.</p>
+@if (TempData["Msg"] != null) { <p class="alert">@TempData["Msg"]</p> }
+<form method="post" class="card">
+    <label>Needs</label><input name="needs" type="number" min="0" value="15000" />
+    <label>Wants</label><input name="wants" type="number" min="0" value="5000" />
+    <label>Savings</label><input name="savings" type="number" min="0" value="4000" />
+    <label>Emergency</label><input name="emergency" type="number" min="0" value="3000" />
+    <label>Investing</label><input name="invest" type="number" min="0" value="3000" />
+    <button class="btn" type="submit">Check the split</button>
+</form>

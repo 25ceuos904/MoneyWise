@@ -1,0 +1,19 @@
+@{
+    var cards = new (string Key, string Label)[]
+    {
+        ("groceries", "Groceries"), ("game", "New game"), ("rent", "Rent"), ("headphones", "Headphones"),
+        ("books", "School books"), ("phone", "Latest phone"), ("medicine", "Medicine"), ("restaurant", "Restaurant")
+    };
+}
+<h1>Need or want?</h1>
+<form method="post">
+@foreach (var card in cards)
+{
+    <section class="card">
+        <h2>@card.Label</h2>
+        <label class="choice"><input type="radio" name="@card.Key" value="need" required /> <span>Need</span></label>
+        <label class="choice"><input type="radio" name="@card.Key" value="want" /> <span>Want</span></label>
+    </section>
+}
+<button class="btn" type="submit">See the sort</button>
+</form>

@@ -1,0 +1,38 @@
+@model ProfileEditViewModel
+@{
+    var progress = (UserProgress)ViewBag.Progress;
+}
+<h1>@Model.Name</h1>
+<p class="muted">@Model.AgeGroup · @Model.Experience · @GameRules.LevelTitle(progress.Xp) · @progress.Xp XP · streak @progress.Streak · score @progress.Overall · badges @ViewBag.Badges</p>
+<form method="post" class="card" id="profileForm">
+    <div asp-validation-summary="All" class="alert" id="validationSummary" style="display:@(ViewData.ModelState.IsValid ? "none" : "block")"></div>
+    <label asp-for="Name">Name</label><input asp-for="Name" required />
+    <span asp-validation-for="Name" class="muted alert-error"></span>
+    <label asp-for="AgeGroup">Age group</label>
+    <select asp-for="AgeGroup" required><option>10-12</option><option>13-15</option><option>16-18</option></select>
+    <label asp-for="Experience">Experience</label>
+    <select asp-for="Experience" required>
+        <option value="starting">Just starting</option>
+        <option value="some">I know a little</option>
+        <option value="comfortable">I already budget</option>
+    </select>
+    <button class="btn" type="submit">Save profile</button>
+</form>
+<form asp-action="Reset" method="post" style="margin-top:12px" onsubmit="return confirm('Reset learning progress for this player?');">
+    <button class="btn light" type="submit">Reset learning progress</button>
+</form>
+<p class="muted">All money in MoneyWise is simulated and used only for educational purposes.</p>
+
+@section Scripts {
+<script>
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+        var name = document.querySelector('[name="Name"]').value.trim();
+        var summary = document.getElementById('validationSummary');
+        if (!name) {
+            e.preventDefault();
+            summary.style.display = 'block';
+            summary.innerHTML = '<ul><li>Name cannot be empty.</li></ul>';
+        }
+    });
+</script>
+}

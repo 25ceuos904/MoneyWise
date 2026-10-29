@@ -1,0 +1,20 @@
+@model List<Scenario>
+<h1>Play a money moment</h1>
+<p class="muted">These sit beside your main journey. The journey itself is the story that continues month to month.</p>
+<div class="grid two">
+    <a class="card" asp-action="Needs"><h2>Need or want?</h2><p class="muted">Sort eight everyday cards.</p></a>
+    <a class="card" asp-action="Budget"><h2>Split ₹30,000</h2><p class="muted">Needs, wants, savings, emergency, investing.</p></a>
+    <a class="card" asp-action="Inflation"><h2>What ₹100 buys</h2><p class="muted">See prices drift over years.</p></a>
+    <a class="card" asp-action="Compound"><h2>Compound example</h2><p class="muted">A labeled educational calculator.</p></a>
+    <a class="card" asp-action="Emi"><h2>Phone on EMI</h2><p class="muted">Pay now, wait, or borrow.</p></a>
+    <a class="card" asp-action="Credit"><h2>Credit limit</h2><p class="muted">For ages 16–18.</p></a>
+    <a class="card" asp-action="Insurance"><h2>Unexpected bill</h2><p class="muted">For ages 16–18. No product names.</p></a>
+    <a class="card" asp-controller="Investment" asp-action="Portfolio"><h2>Build a portfolio</h2><p class="muted">Split ₹10,000 of virtual money.</p></a>
+</div>
+<h2 style="margin-top:22px">Story scenes</h2>
+<div class="grid">
+@foreach (var scene in Model.Where(s => !s.IsLifeEvent))
+{
+    <div class="card"><span class="tag">@scene.Emoji Stage @scene.Stage</span><h2>@scene.Title</h2><p class="muted">@scene.Story</p><a asp-controller="MoneyJourney" asp-action="Index">Play inside the journey</a></div>
+}
+</div>

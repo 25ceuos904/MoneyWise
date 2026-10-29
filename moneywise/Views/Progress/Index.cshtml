@@ -1,0 +1,30 @@
+@model UserProgress
+@{
+    var journey = (MoneyJourney)ViewBag.Journey;
+    var earned = ((IEnumerable<UserBadge>)ViewBag.Badges).ToList();
+    var all = (List<Badge>)ViewBag.AllBadges;
+    }
+<h1>MoneyWise score @Model.Overall</h1>
+<p class="muted">This score tracks learning choices, not real financial health.</p>
+<div class="card grid">
+    <div><div class="muted">Saving · @Model.SavingScore</div><div class="bar"><span style="--w:@(Model.SavingScore)%"></span></div></div>
+    <div><div class="muted">Budgeting · @Model.BudgetingScore</div><div class="bar"><span style="--w:@(Model.BudgetingScore)%"></span></div></div>
+    <div><div class="muted">Spending · @Model.SpendingScore</div><div class="bar"><span style="--w:@(Model.SpendingScore)%"></span></div></div>
+    <div><div class="muted">Investing · @Model.InvestingScore</div><div class="bar"><span style="--w:@(Model.InvestingScore)%"></span></div></div>
+    <div><div class="muted">Risk · @Model.RiskScore</div><div class="bar"><span style="--w:@(Model.RiskScore)%"></span></div></div>
+    <div><div class="muted">Planning · @Model.PlanningScore</div><div class="bar"><span style="--w:@(Model.PlanningScore)%"></span></div></div>
+</div>
+<div class="grid stats" style="margin-top:14px">
+    <div class="card"><div class="muted">Lessons</div><strong>@ViewBag.Lessons</strong></div>
+    <div class="card"><div class="muted">Challenges</div><strong>@ViewBag.Challenges</strong></div>
+    <div class="card"><div class="muted">Decisions</div><strong>@ViewBag.Sims</strong></div>
+    <div class="card"><div class="muted">Stage</div><strong>@GameRules.Stages[Math.Clamp(journey.CurrentStage - 1, 0, 6)]</strong></div>
+</div>
+<h2 style="margin-top:18px">Badges</h2>
+<div class="grid stats">
+@foreach (var badge in all)
+{
+    var got = earned.Any(e => e.BadgeId == badge.Id);
+    <div class="card" style="opacity:@(got ? 1 : .45)"><div>@badge.Icon</div><strong>@badge.Title</strong><p class="muted">@badge.Description</p></div>
+}
+</div>

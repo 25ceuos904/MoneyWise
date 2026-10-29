@@ -1,0 +1,51 @@
+@{
+    var path = Context.Request.Path.Value ?? "";
+    string On(string part) => path.Contains(part, StringComparison.OrdinalIgnoreCase) ? "on" : "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MoneyWise</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" asp-controller="Home" asp-action="Index">MoneyWise</a>
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <nav class="nav">
+                <a class="@On("/Dashboard")" asp-controller="Dashboard" asp-action="Index">Home</a>
+                <a class="@On("/MoneyJourney")" asp-controller="MoneyJourney" asp-action="Index">Journey</a>
+                <a class="@On("/Learn")" asp-controller="Learn" asp-action="Index">Learn</a>
+                <a class="@On("/Simulation")" asp-controller="Simulation" asp-action="Index">Play</a>
+                <a class="@On("/Investment")" asp-controller="Investment" asp-action="Index">Invest</a>
+                <a class="@On("/Challenge")" asp-controller="Challenge" asp-action="Index">Challenges</a>
+                <a class="@On("/Progress")" asp-controller="Progress" asp-action="Index">Progress</a>
+                <a class="@On("/Profile")" asp-controller="Profile" asp-action="Index">Profile</a>
+                <form asp-controller="Account" asp-action="Logout" method="post">
+                    <button type="submit">Log out</button>
+                </form>
+            </nav>
+        }
+    </header>
+    <main class="wrap">
+        @RenderBody()
+    </main>
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <nav class="mobile-nav">
+            <a class="@On("/Dashboard")" asp-controller="Dashboard" asp-action="Index">Home</a>
+            <a class="@On("/MoneyJourney")" asp-controller="MoneyJourney" asp-action="Index">Journey</a>
+            <a class="@On("/Learn")" asp-controller="Learn" asp-action="Index">Learn</a>
+            <a class="@On("/Simulation")" asp-controller="Simulation" asp-action="Index">Play</a>
+            <a class="@On("/Investment")" asp-controller="Investment" asp-action="Index">Invest</a>
+            <a class="@On("/Challenge")" asp-controller="Challenge" asp-action="Index">Challenges</a>
+            <a class="@On("/Progress")" asp-controller="Progress" asp-action="Index">Progress</a>
+            <a class="@On("/Profile")" asp-controller="Profile" asp-action="Index">Me</a>
+        </nav>
+    }
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

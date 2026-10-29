@@ -1,0 +1,31 @@
+@model LoginViewModel
+<h1>Welcome back</h1>
+<form method="post" id="loginForm">
+    <div asp-validation-summary="All" class="alert" id="validationSummary" style="display:@(ViewData.ModelState.IsValid ? "none" : "block")"></div>
+    <label asp-for="Email">Email</label>
+    <input asp-for="Email" type="email" required />
+    <span asp-validation-for="Email" class="muted alert-error"></span>
+    <label asp-for="Password">Password</label>
+    <input asp-for="Password" type="password" required />
+    <span asp-validation-for="Password" class="muted alert-error"></span>
+    <button class="btn" type="submit">Continue</button>
+</form>
+<p class="muted">New here? <a asp-action="Register">Create a player</a></p>
+
+@section Scripts {
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+        var email = document.querySelector('[name="Email"]').value.trim();
+        var pass = document.querySelector('[name="Password"]').value;
+        var summary = document.getElementById('validationSummary');
+        var errors = [];
+        if (!email || !email.includes('@@')) errors.push('Please enter a valid email address.');
+        if (!pass) errors.push('Password is required.');
+        if (errors.length > 0) {
+            e.preventDefault();
+            summary.style.display = 'block';
+            summary.innerHTML = '<ul>' + errors.map(function(err) { return '<li>' + err + '</li>'; }).join('') + '</ul>';
+        }
+    });
+</script>
+}

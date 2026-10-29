@@ -1,0 +1,22 @@
+<h1>Twelve illustrated months</h1>
+<p class="alert">Investments involve risk. Past performance does not guarantee future results. The line below is randomized for learning.</p>
+@if (TempData["Msg"] != null) { <p>@TempData["Msg"]</p> }
+@{
+    var path = TempData["Path"] as string;
+}
+@if (!string.IsNullOrEmpty(path))
+{
+    <div class="grid stats">
+    @foreach (var pair in path.Split(',').Select((v, i) => (v, i)))
+    {
+        <div class="card"><div class="muted">Month @(pair.i + 1)</div><strong>₹@int.Parse(pair.v).ToString("N0")</strong></div>
+    }
+    </div>
+}
+<form method="post" class="card" style="margin-top:14px">
+    <label>Savings</label><input name="savings" type="number" min="0" value="2000" />
+    <label>FD</label><input name="fd" type="number" min="0" value="2000" />
+    <label>Mutual fund</label><input name="fund" type="number" min="0" value="4000" />
+    <label>Stocks</label><input name="stocks" type="number" min="0" value="2000" />
+    <button class="btn" type="submit">Simulate the year</button>
+</form>

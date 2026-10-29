@@ -1,0 +1,21 @@
+<h1>Educational compound example</h1>
+<p class="muted">These numbers are hypothetical. They are not a promised return.</p>
+<div class="card">
+    <label>Starting amount</label><input id="principal" type="number" value="5000" />
+    <label>Years</label><input id="time" type="number" value="5" />
+    <label>Example yearly rate %</label><input id="rate" type="number" value="6" />
+    <p class="money" id="out">₹6,691</p>
+    <p class="muted" id="line"></p>
+</div>
+<script>
+function paint() {
+  const p = Number(document.getElementById('principal').value) || 0;
+  const t = Number(document.getElementById('time').value) || 0;
+  const r = Number(document.getElementById('rate').value) || 0;
+  const value = Math.round(p * Math.pow(1 + r / 100, t));
+  document.getElementById('out').textContent = '₹' + value.toLocaleString('en-IN');
+  document.getElementById('line').textContent = 'If ₹' + p.toLocaleString('en-IN') + ' grew at ' + r + '% every year for ' + t + ' years, the illustration ends near ₹' + value.toLocaleString('en-IN') + '. Real products can pay less, or lose money.';
+}
+['principal','time','rate'].forEach(id => document.getElementById(id).addEventListener('input', paint));
+paint();
+</script>

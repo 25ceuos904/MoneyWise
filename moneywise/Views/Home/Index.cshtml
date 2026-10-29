@@ -1,0 +1,22 @@
+@{
+    Layout = "_Layout";
+}
+<section class="landing grid two">
+    <div>
+        <span class="tag">Simulated money only</span>
+        <h1>Learn money by making the next choice.</h1>
+        <p class="muted">MoneyWise is a financial life game for Indian students. A story appears, you decide, and the consequence teaches the idea. Nothing here connects to a real bank.</p>
+        <div class="grid" style="grid-template-columns:1fr 1fr;max-width:420px">
+            <a class="btn" asp-controller="Account" asp-action="Register">Start playing</a>
+            <a class="btn light" asp-controller="Account" asp-action="Login">I already play</a>
+        </div>
+    </div>
+    <div class="hero-play">
+        <div>
+            <div class="tag">Emergency</div>
+            <h2>Your phone stopped working.</h2>
+            <p>Repair is ₹7,500. Savings, an emergency jar, or a loan — the choice changes next month.</p>
+        </div>
+        <a class="btn light" asp-controller="Account" asp-action="Register">See what happens</a>
+    </div>
+</section>

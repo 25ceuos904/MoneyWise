@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/moneywise/">
+    <Project Path="moneywise/MoneyWise.csproj" />
+  </Folder>
+  <Project Path="MoneyWise.Tests/MoneyWise.Tests.csproj" />
+</Solution>

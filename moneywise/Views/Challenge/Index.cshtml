@@ -1,0 +1,16 @@
+@model List<Challenge>
+@{
+    var done = (List<int>)ViewBag.Done;
+}
+<h1>Challenges</h1>
+<p class="muted">They complete when your journey or a game matches the rule. XP is added then.</p>
+<div class="grid">
+@foreach (var item in Model)
+{
+    <article class="card">
+        @if (done.Contains(item.Id)) { <span class="tag">Done · +@item.Xp XP</span> }
+        <h2>@item.Title</h2>
+        <p class="muted">@item.Description</p>
+    </article>
+}
+</div>

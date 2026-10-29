@@ -1,0 +1,17 @@
+@model List<InvestmentConcept>
+<h1>Investment ideas</h1>
+<p class="alert">Investments involve risk. Past performance does not guarantee future results. All money here is simulated.</p>
+<div class="grid">
+@foreach (var item in Model)
+{
+    <a class="card" asp-action="Detail" asp-route-id="@item.Id">
+        <span class="tag">@item.RiskLevel risk</span>
+        <h2>@item.Title</h2>
+        <p class="muted">@item.Situation</p>
+    </a>
+}
+</div>
+<div class="grid two" style="margin-top:14px">
+    <a class="btn" asp-action="Portfolio">Build a portfolio</a>
+    <a class="btn light" asp-action="Timeline">Run 12 simulated months</a>
+</div>

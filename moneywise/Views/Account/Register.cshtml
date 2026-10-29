@@ -1,0 +1,48 @@
+@model RegisterViewModel
+<h1>Create your player</h1>
+<p class="muted">Name, email, and age group only. No bank, card, or real money details.</p>
+<form method="post" id="registerForm">
+    <div asp-validation-summary="All" class="alert" id="validationSummary" style="display:@(ViewData.ModelState.IsValid ? "none" : "block")"></div>
+    <label asp-for="Name">Name</label>
+    <input asp-for="Name" required />
+    <span asp-validation-for="Name" class="muted alert-error"></span>
+    <label asp-for="Email">Email</label>
+    <input asp-for="Email" type="email" required />
+    <span asp-validation-for="Email" class="muted alert-error"></span>
+    <label asp-for="Password">Password</label>
+    <input asp-for="Password" type="password" required minlength="6" />
+    <span asp-validation-for="Password" class="muted alert-error"></span>
+    <label asp-for="AgeGroup">Age group</label>
+    <select asp-for="AgeGroup" required>
+        <option>10-12</option>
+        <option>13-15</option>
+        <option>16-18</option>
+    </select>
+    <label asp-for="Experience">Experience</label>
+    <select asp-for="Experience" required>
+        <option value="starting">Just starting</option>
+        <option value="some">I know a little</option>
+        <option value="comfortable">I already budget</option>
+    </select>
+    <button class="btn" type="submit">Enter MoneyWise</button>
+</form>
+
+@section Scripts {
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        var name = document.querySelector('[name="Name"]').value.trim();
+        var email = document.querySelector('[name="Email"]').value.trim();
+        var pass = document.querySelector('[name="Password"]').value;
+        var summary = document.getElementById('validationSummary');
+        var errors = [];
+        if (!name) errors.push('Name is required.');
+        if (!email || !email.includes('@@')) errors.push('A valid email address is required.');
+        if (!pass || pass.length < 6) errors.push('Password must be at least 6 characters long.');
+        if (errors.length > 0) {
+            e.preventDefault();
+            summary.style.display = 'block';
+            summary.innerHTML = '<ul>' + errors.map(function(err) { return '<li>' + err + '</li>'; }).join('') + '</ul>';
+        }
+    });
+</script>
+}

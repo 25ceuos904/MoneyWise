@@ -1,0 +1,19 @@
+<h1>₹100 over time</h1>
+<p>Imagine a snack plate that costs ₹100 today. If prices rise about 6% a year, the same plate costs more later. Your ₹100 note buys a smaller share of it.</p>
+<label>Years from now <span id="yearsLabel">5</span></label>
+<input id="years" type="range" min="1" max="15" value="5" />
+<p class="money" id="price">₹134</p>
+<p class="muted" id="note"></p>
+<p class="muted">This is an illustration, not a forecast of Indian prices.</p>
+<script>
+const years = document.getElementById('years');
+function paint() {
+  const y = Number(years.value);
+  document.getElementById('yearsLabel').textContent = y;
+  const price = Math.round(100 * Math.pow(1.06, y));
+  document.getElementById('price').textContent = '₹' + price;
+  document.getElementById('note').textContent = 'After ' + y + ' years the same plate might cost about ₹' + price + ', so ₹100 covers less of it.';
+}
+years.addEventListener('input', paint);
+paint();
+</script>
